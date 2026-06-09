@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SyncShift 2030 - Teamarbeit mit KI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* === VIEWPORT FITTING: MANDATORY BASE STYLES === */
+    /* ===========================================
+       VIEWPORT FITTING: MANDATORY BASE STYLES
+       Include this ENTIRE file in every presentation.
+       These styles ensure slides fit exactly in the viewport.
+       =========================================== */
+
+    /* 1. Lock html/body to viewport */
+    html, body {
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+    }
+
+    /* 2. Each slide = exact viewport height */
+    .slide {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile browsers */
+        overflow: hidden; /* CRITICAL: Prevent ANY overflow */
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* 3. Content container with flex for centering */
+    .slide-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-height: 100%;
+        overflow: hidden; /* Double-protection against overflow */
+        padding: var(--slide-padding);
+    }
+
+    /* 4. ALL typography uses clamp() for responsive scaling */
+    :root {
+        /* Titles scale from mobile to desktop */
+        --title-size: clamp(1.5rem, 5vw, 4rem);
+        --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+        --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+
+        /* Body text */
+        --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+        --small-size: clamp(0.65rem, 1vw, 0.875rem);
+
+        /* Spacing scales with viewport */
+        --slide-padding: clamp(1rem, 4vw, 4rem);
+        --content-gap: clamp(0.5rem, 2vw, 2rem);
+        --element-gap: clamp(0.25rem, 1vw, 1rem);
+    }
+
+    /* 5. Cards/containers use viewport-relative max sizes */
+    .card, .container, .content-box {
+        max-width: min(90vw, 1000px);
+        max-height: min(80vh, 700px);
+    }
+
+    /* 6. Lists auto-scale with viewport */
+    .feature-list, .bullet-list {
+        gap: clamp(0.4rem, 1vh, 1rem);
+    }
+
+    .feature-list li, .bullet-list li {
+        font-size: var(--body-size);
+        line-height: 1.4;
+    }
+
+    /* 7. Grids adapt to available space */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+        gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    /* 8. Images constrained to viewport */
+    img, .image-container {
+        max-width: 100%;
+        max-height: min(50vh, 400px);
+        object-fit: contain;
+    }
+
+    /* ===========================================
+       RESPONSIVE BREAKPOINTS
+       Aggressive scaling for smaller viewports
+       =========================================== */
+
+    /* Short viewports (< 700px height) */
+    @media (max-height: 700px) {
+        :root {
+            --slide-padding: clamp(0.75rem, 3vw, 2rem);
+            --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+            --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+            --h2-size: clamp(1rem, 3vw, 1.75rem);
+        }
+    }
+
+    /* Very short viewports (< 600px height) */
+    @media (max-height: 600px) {
+        :root {
+            --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+            --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+            --title-size: clamp(1.1rem, 4vw, 2rem);
+            --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+        }
+
+        /* Hide non-essential elements */
+        .nav-dots, .keyboard-hint, .decorative {
+            display: none;
+        }
+    }
+
+    /* Extremely short (landscape phones, < 500px height) */
+    @media (max-height: 500px) {
+        :root {
+            --slide-padding: clamp(0.4rem, 2vw, 1rem);
+            --title-size: clamp(1rem, 3.5vw, 1.5rem);
+            --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+            --body-size: clamp(0.65rem, 1vw, 0.85rem);
+        }
+    }
+
+    /* Narrow viewports (< 600px width) */
+    @media (max-width: 600px) {
+        :root {
+            --title-size: clamp(1.25rem, 7vw, 2.5rem);
+        }
+
+        /* Stack grids vertically */
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ===========================================
+       REDUCED MOTION
+       Respect user preferences
+       =========================================== */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    /* === THEME TOKENS === */
+    :root {
+      --ink: #f4f1ea;
+      --muted: #c9bea3;
+      --bg-a: #11171f;
+      --bg-b: #1f3440;
+      --accent: #ff7a18;
+      --accent-soft: #ffd166;
+      --line: rgba(244, 241, 234, 0.2);
+      --card: rgba(17, 23, 31, 0.55);
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    /* === BASE PRESENTATION LAYOUT === */
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 18%, rgba(255, 122, 24, 0.28), transparent 30%),
+        radial-gradient(circle at 88% 24%, rgba(255, 209, 102, 0.18), transparent 33%),
+        linear-gradient(130deg, var(--bg-a), var(--bg-b));
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(transparent 97%, rgba(255,255,255,0.04) 97%),
+        linear-gradient(90deg, transparent 97%, rgba(255,255,255,0.04) 97%);
+      background-size: clamp(1.7rem, 2vw, 2.2rem) clamp(1.7rem, 2vw, 2.2rem);
+      pointer-events: none;
+      opacity: 0.48;
+    }
+
+    .slide-content {
+      gap: var(--content-gap);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2 {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    h1 { font-size: var(--title-size); }
+    h2 { font-size: var(--h2-size); }
+
+    p, li {
+      margin: 0;
+      font-size: var(--body-size);
+      line-height: 1.4;
+    }
+
+    .kicker {
+      font-size: var(--small-size);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-soft);
+      font-weight: 700;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: clamp(0.8rem, 1.4vw, 1.2rem);
+      backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+      padding: clamp(0.7rem, 1.8vw, 1.4rem);
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-list li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      gap: clamp(0.5rem, 1vw, 0.9rem);
+    }
+
+    .feature-list li::before {
+      content: "//";
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+      max-height: min(58vh, 450px);
+    }
+
+    .metric {
+      padding: clamp(0.75rem, 1.4vw, 1rem);
+      border: 1px solid var(--line);
+      border-radius: clamp(0.7rem, 1vw, 1rem);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(0.25rem, 0.6vw, 0.5rem);
+    }
+
+    .metric strong {
+      font-size: clamp(1.2rem, 2.8vw, 2.1rem);
+      color: var(--accent-soft);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(0.5rem, 1.2vw, 1rem);
+      max-height: min(60vh, 480px);
+    }
+
+    .step {
+      border-left: clamp(0.15rem, 0.3vw, 0.25rem) solid var(--accent);
+      padding-left: clamp(0.5rem, 1vw, 0.8rem);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.25rem, 0.8vw, 0.5rem);
+    }
+
+    .quote {
+      font-size: clamp(1.1rem, 2.8vw, 2.2rem);
+      font-family: "Fraunces", serif;
+      max-width: min(80vw, 900px);
+      line-height: 1.2;
+    }
+
+    .attribution {
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: var(--small-size);
+      font-weight: 700;
+    }
+
+    .nav-dots {
+      position: fixed;
+      right: clamp(0.6rem, 1.4vw, 1.2rem);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.45rem, 0.9vw, 0.75rem);
+    }
+
+    .nav-dot {
+      width: clamp(0.55rem, 0.8vw, 0.75rem);
+      height: clamp(0.55rem, 0.8vw, 0.75rem);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      background: transparent;
+      cursor: pointer;
+      transition: transform 200ms ease, background-color 200ms ease;
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      transform: scale(1.24);
+      border-color: var(--accent-soft);
+    }
+
+    .keyboard-hint {
+      position: fixed;
+      left: clamp(0.7rem, 1.8vw, 1.4rem);
+      bottom: clamp(0.7rem, 1.8vw, 1.4rem);
+      font-size: var(--small-size);
+      color: var(--muted);
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.25);
+      padding: clamp(0.25rem, 0.6vw, 0.45rem) clamp(0.4rem, 0.8vw, 0.7rem);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(clamp(0.5rem, 1.2vw, 1rem));
+      animation: rise 640ms cubic-bezier(.18,.84,.44,1) forwards;
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 840px) {
+      .metric-grid, .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .metric-grid, .timeline {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- === GLOBAL NAVIGATION DOTS === -->
+  <nav class="nav-dots" aria-label="Slide navigation"></nav>
+
+  <!-- === GLOBAL KEYBOARD HINT === -->
+  <div class="keyboard-hint">Pfeiltasten oder Leertaste</div>
+
+  <!-- === SLIDE 1: TITLE === -->
+  <section class="slide" id="slide-1">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 90ms;">Vision Deck 2026</p>
+      <h1 class="reveal" style="animation-delay: 180ms;">SyncShift 2030</h1>
+      <p class="panel reveal" style="animation-delay: 300ms; max-width: min(76vw, 760px);">
+        Wie Teams mit KI nicht nur schneller arbeiten, sondern bessere Entscheidungen treffen, Wissen teilen und kreative Energie freisetzen.
+      </p>
+    </div>
+  </section>
+
+  <!-- === SLIDE 2: WHY NOW === -->
+  <section class="slide" id="slide-2">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 80ms;">Ausgangslage</p>
+      <h2 class="reveal" style="animation-delay: 160ms;">Warum wir 2026 handeln müssen</h2>
+      <ul class="feature-list panel reveal" style="animation-delay: 280ms; max-width: min(86vw, 960px);">
+        <li>Wissen ist in Chats, Meetings und Dateien verteilt und damit schwer auffindbar.</li>
+        <li>Entscheidungen werden oft auf Bauchgefühl statt auf aktuelle Daten gestuetzt.</li>
+        <li>Teams verlieren Zeit durch wiederholte Abstimmungsrunden.</li>
+        <li>Neue Mitarbeitende brauchen zu lange, um produktiv zu werden.</li>
+        <li>Innovationsideen scheitern an zu wenig Fokuszeit.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- === SLIDE 3: TARGET STATE === -->
+  <section class="slide" id="slide-3">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 80ms;">Zielbild</p>
+      <h2 class="reveal" style="animation-delay: 160ms;">So sieht Teamarbeit 2030 aus</h2>
+      <div class="grid reveal" style="animation-delay: 260ms; max-width: min(88vw, 980px);">
+        <article class="panel">
+          <h3 style="font-size: var(--h3-size); margin: 0 0 0.4em 0;">Live Memory</h3>
+          <p>Projektwissen wird automatisch strukturiert und im Kontext vorgeschlagen.</p>
+        </article>
+        <article class="panel">
+          <h3 style="font-size: var(--h3-size); margin: 0 0 0.4em 0;">Decision Co-Pilot</h3>
+          <p>Risiken, Abhaengigkeiten und Alternativen sind vor jedem Meeting sichtbar.</p>
+        </article>
+        <article class="panel">
+          <h3 style="font-size: var(--h3-size); margin: 0 0 0.4em 0;">Creative Sprint Mode</h3>
+          <p>Routineaufgaben laufen automatisch, Teams konzentrieren sich auf Ideen.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- === SLIDE 4: IMPACT METRICS === -->
+  <section class="slide" id="slide-4">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 70ms;">Business Impact</p>
+      <h2 class="reveal" style="animation-delay: 150ms;">Messbare Wirkung in 12 Monaten</h2>
+      <div class="metric-grid reveal" style="animation-delay: 260ms; max-width: min(88vw, 1000px);">
+        <div class="metric"><strong>-31%</strong><span>Meeting-Zeit ohne Ergebnis</span></div>
+        <div class="metric"><strong>+44%</strong><span>Schnelleres Onboarding</span></div>
+        <div class="metric"><strong>2,4x</strong><span>Mehr umgesetzte Ideen pro Quartal</span></div>
+        <div class="metric"><strong>-22%</strong><span>Operative Fehler in Uebergaben</span></div>
+        <div class="metric"><strong>+18%</strong><span>Teamzufriedenheit im Pulse-Check</span></div>
+        <div class="metric"><strong>+9%</strong><span>Planbare Lieferfaehigkeit pro Sprint</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === SLIDE 5: ROADMAP === -->
+  <section class="slide" id="slide-5">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 70ms;">Umsetzung</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Roadmap in vier Etappen</h2>
+      <div class="timeline reveal" style="animation-delay: 250ms; max-width: min(90vw, 1060px);">
+        <article class="step"><h3 style="font-size: var(--h3-size); margin: 0;">Q1</h3><p>Wissensquellen verbinden und Governance definieren.</p></article>
+        <article class="step"><h3 style="font-size: var(--h3-size); margin: 0;">Q2</h3><p>Decision Co-Pilot in zwei Kernprozessen pilotieren.</p></article>
+        <article class="step"><h3 style="font-size: var(--h3-size); margin: 0;">Q3</h3><p>Automatisierungen fuer Routinearbeit im gesamten Team ausrollen.</p></article>
+        <article class="step"><h3 style="font-size: var(--h3-size); margin: 0;">Q4</h3><p>Kulturverankerung: Playbooks, Rollen, kontinuierliche Lernzyklen.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- === SLIDE 6: RISKS === -->
+  <section class="slide" id="slide-6">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 70ms;">Risikomanagement</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Drei Leitplanken fuer sichere Skalierung</h2>
+      <ul class="feature-list panel reveal" style="animation-delay: 250ms; max-width: min(84vw, 920px);">
+        <li>Data Boundaries: Zugriff strikt rollenbasiert, sensible Inhalte standardmaessig maskiert.</li>
+        <li>Human Gate: Entscheidungen mit hoher Tragweite bleiben immer menschlich freigegeben.</li>
+        <li>Quality Loop: Jede KI-Ausgabe wird gemessen, bewertet und iterativ verbessert.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- === SLIDE 7: QUOTE === -->
+  <section class="slide" id="slide-7">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 70ms;">Leitsatz</p>
+      <p class="quote reveal" style="animation-delay: 160ms;">
+        "Die produktivsten Teams der Zukunft ersetzen Menschen nicht durch KI. Sie verstaerken menschliche Urteilskraft durch KI."
+      </p>
+      <p class="attribution reveal" style="animation-delay: 260ms;">SyncShift Program Team</p>
+    </div>
+  </section>
+
+  <!-- === SLIDE 8: CLOSING === -->
+  <section class="slide" id="slide-8">
+    <div class="slide-content">
+      <p class="kicker reveal" style="animation-delay: 80ms;">Next Step</p>
+      <h2 class="reveal" style="animation-delay: 170ms;">Starten wir mit dem 90-Tage-Pilot?</h2>
+      <p class="panel reveal" style="animation-delay: 280ms; max-width: min(76vw, 760px);">
+        Ziel: Ein cross-funktionales Team, zwei reale Prozesse, klare KPIs.
+        In drei Monaten sehen wir, welche Wirkung in unserem Kontext wirklich zaehlt.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    /* === SLIDE NAVIGATION LOGIC === */
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const nav = document.querySelector('.nav-dots');
+
+    slides.forEach((slide, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot';
+      dot.setAttribute('aria-label', `Zu Slide ${index + 1}`);
+      dot.addEventListener('click', () => {
+        slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      nav.appendChild(dot);
+    });
+
+    const dots = Array.from(document.querySelectorAll('.nav-dot'));
+
+    /* === ACTIVE SLIDE TRACKING === */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+        const activeIndex = slides.indexOf(entry.target);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === activeIndex);
+        });
+      });
+    }, { threshold: 0.6 });
+
+    slides.forEach((slide) => observer.observe(slide));
+
+    /* === KEYBOARD NAVIGATION === */
+    function getActiveSlideIndex() {
+      let best = 0;
+      let bestDistance = Number.POSITIVE_INFINITY;
+      slides.forEach((slide, idx) => {
+        const distance = Math.abs(slide.getBoundingClientRect().top);
+        if (distance < bestDistance) {
+          best = idx;
+          bestDistance = distance;
+        }
+      });
+      return best;
+    }
+
+    function goToSlide(index) {
+      const target = slides[Math.max(0, Math.min(slides.length - 1, index))];
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    window.addEventListener('keydown', (event) => {
+      if (['ArrowDown', 'PageDown', ' ', 'ArrowRight'].includes(event.key)) {
+        event.preventDefault();
+        goToSlide(getActiveSlideIndex() + 1);
+      }
+      if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(event.key)) {
+        event.preventDefault();
+        goToSlide(getActiveSlideIndex() - 1);
+      }
+      if (event.key === 'Home') {
+        goToSlide(0);
+      }
+      if (event.key === 'End') {
+        goToSlide(slides.length - 1);
+      }
+    });
+
+    dots[0]?.classList.add('active');
+  </script>
+</body>
+</html>
