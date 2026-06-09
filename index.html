@@ -3,20 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Copilot Cowork - Executive Comparison Deck</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <title>Copilot Cowork - Copilot Style Deck</title>
   <style>
-    /* === VIEWPORT FITTING: MANDATORY BASE STYLES === */
-    html, body {
-      height: 100%;
-      overflow-x: hidden;
+    :root {
+      --c-ink: #091F2C;
+      --c-blue: #0078D4;
+      --c-magenta: #C03BC4;
+      --c-violet: #8661C5;
+      --c-sky: #8DC8E8;
+      --c-peach: #FFA38B;
+      --c-orange: #FF5C39;
+      --c-warm: #FFF8F5;
+      --c-neutral: #F4F3F5;
+      --grad-primary: linear-gradient(135deg, #238CD9 0%, #CA6CCD 100%);
+      --grad-hover: linear-gradient(135deg, #0078D4 0%, #C03BC4 100%);
+      --title-size: clamp(1.6rem, 5.4vw, 4rem);
+      --h2-size: clamp(1.2rem, 3.4vw, 2.35rem);
+      --h3-size: clamp(0.95rem, 2.1vw, 1.3rem);
+      --body-size: clamp(0.74rem, 1.35vw, 1.02rem);
+      --small-size: clamp(0.62rem, 0.9vw, 0.84rem);
+      --pad: clamp(0.95rem, 3.2vw, 3rem);
+      --gap: clamp(0.5rem, 1.2vw, 0.95rem);
+      --panel-radius: clamp(0.7rem, 1.2vw, 1rem);
+      --line: rgba(9, 31, 44, 0.16);
+      --shadow: 0 14px 34px rgba(9, 31, 44, 0.12);
     }
 
-    html {
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow-x: hidden;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
+      font-family: "Segoe Sans Display", "Segoe UI", Arial, sans-serif;
+      color: var(--c-ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(141, 200, 232, 0.3), transparent 33%),
+        radial-gradient(circle at 90% 18%, rgba(255, 163, 139, 0.3), transparent 34%),
+        linear-gradient(160deg, var(--c-warm) 0%, #fffdfa 42%, var(--c-neutral) 100%);
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      gap: clamp(0.2rem, 0.6vw, 0.45rem);
+      flex-wrap: wrap;
+      padding: clamp(0.35rem, 0.8vw, 0.58rem) clamp(0.5rem, 1.6vw, 1.4rem);
+      background: rgba(255, 248, 245, 0.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(9, 31, 44, 0.12);
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      font-size: var(--small-size);
+      font-weight: 700;
+      color: var(--c-ink);
+      padding: clamp(0.2rem, 0.45vw, 0.3rem) clamp(0.4rem, 0.8vw, 0.62rem);
+      border-radius: 999px;
+      border: 1px solid rgba(9, 31, 44, 0.12);
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      background: var(--grad-hover);
+      color: #fff;
+      border-color: transparent;
+      transform: translateY(-1px);
     }
 
     .slide {
@@ -28,108 +88,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
-    }
-
-    .slide-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      max-height: 100%;
-      overflow: hidden;
-      padding: var(--slide-padding);
-    }
-
-    :root {
-      --title-size: clamp(1.7rem, 5.8vw, 4.8rem);
-      --h2-size: clamp(1.3rem, 3.8vw, 2.8rem);
-      --h3-size: clamp(0.95rem, 2.1vw, 1.4rem);
-      --body-size: clamp(0.75rem, 1.4vw, 1.06rem);
-      --small-size: clamp(0.62rem, 0.9vw, 0.84rem);
-      --slide-padding: clamp(1rem, 3.3vw, 3.4rem);
-      --content-gap: clamp(0.55rem, 1.6vw, 1.4rem);
-
-      --paper: #f7f4ec;
-      --ink: #171717;
-      --soft-ink: #3f3f3f;
-      --line: rgba(23, 23, 23, 0.16);
-      --accent: #ca2e22;
-      --accent-2: #f2b32f;
-      --panel: rgba(255, 255, 255, 0.78);
-      --shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
-    }
-
-    .card, .container, .content-box {
-      max-width: min(92vw, 1080px);
-      max-height: min(80vh, 700px);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-      gap: clamp(0.5rem, 1.2vw, 1rem);
-    }
-
-    img, .image-container {
-      max-width: 100%;
-      max-height: min(50vh, 400px);
-      object-fit: contain;
-    }
-
-    @media (max-height: 700px) {
-      :root {
-        --slide-padding: clamp(0.7rem, 2.5vw, 2rem);
-        --title-size: clamp(1.35rem, 4.5vw, 2.7rem);
-        --h2-size: clamp(1.05rem, 3.1vw, 2rem);
-      }
-    }
-
-    @media (max-height: 600px) {
-      :root {
-        --slide-padding: clamp(0.5rem, 2vw, 1.4rem);
-        --title-size: clamp(1.1rem, 3.7vw, 2.1rem);
-        --body-size: clamp(0.68rem, 1.1vw, 0.94rem);
-      }
-
-      .nav-dots, .keyboard-hint {
-        display: none;
-      }
-    }
-
-    @media (max-height: 500px) {
-      :root {
-        --slide-padding: clamp(0.4rem, 1.8vw, 1rem);
-        --title-size: clamp(1rem, 3.4vw, 1.7rem);
-        --h2-size: clamp(0.85rem, 2.5vw, 1.3rem);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.2s !important;
-      }
-
-      html {
-        scroll-behavior: auto;
-      }
-    }
-
-    /* === VISUAL SYSTEM === */
-    body {
-      margin: 0;
-      font-family: "Manrope", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 12%, rgba(202, 46, 34, 0.2), transparent 28%),
-        radial-gradient(circle at 88% 78%, rgba(242, 179, 47, 0.2), transparent 32%),
-        linear-gradient(155deg, #f4f0e7 0%, #f9f8f4 55%, #efebe1 100%);
+      padding-top: clamp(2.3rem, 5vw, 3.1rem);
     }
 
     .slide::before {
@@ -137,428 +96,406 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-      background-size: clamp(1rem, 1.6vw, 1.4rem) clamp(1rem, 1.6vw, 1.4rem);
-      opacity: 0.65;
+        linear-gradient(rgba(9, 31, 44, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(9, 31, 44, 0.028) 1px, transparent 1px);
+      background-size: clamp(1rem, 1.5vw, 1.3rem) clamp(1rem, 1.5vw, 1.3rem);
       pointer-events: none;
     }
 
     .slide-content {
       position: relative;
-      z-index: 2;
-      gap: var(--content-gap);
+      z-index: 1;
+      flex: 1;
+      max-height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--pad);
+      gap: var(--gap);
     }
 
     h1, h2, h3 {
       margin: 0;
-      font-family: "Fraunces", serif;
-      letter-spacing: -0.01em;
+      font-family: "Segoe Sans Display Semibold", "Segoe Sans Display", "Segoe UI", Arial, sans-serif;
     }
 
-    h1 { font-size: var(--title-size); line-height: 1.03; }
-    h2 { font-size: var(--h2-size); line-height: 1.07; }
-    h3 { font-size: var(--h3-size); line-height: 1.15; }
+    h1 { font-size: var(--title-size); line-height: 1.04; letter-spacing: -0.01em; }
+    h2 { font-size: var(--h2-size); line-height: 1.08; letter-spacing: -0.01em; }
+    h3 { font-size: var(--h3-size); line-height: 1.2; }
 
-    p, li {
-      margin: 0;
-      font-size: var(--body-size);
-      line-height: 1.38;
-      color: var(--soft-ink);
-    }
+    p, li { margin: 0; font-size: var(--body-size); line-height: 1.38; }
 
     .kicker {
-      font-size: var(--small-size);
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
+      font-size: var(--small-size);
       font-weight: 800;
-      color: var(--accent);
+      color: var(--c-blue);
     }
 
     .panel {
-      background: var(--panel);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--line);
-      border-radius: clamp(0.7rem, 1.4vw, 1.1rem);
+      border-radius: var(--panel-radius);
+      padding: clamp(0.58rem, 1vw, 0.9rem);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(4px);
-      padding: clamp(0.6rem, 1.3vw, 1rem);
     }
+
+    .gradient-panel {
+      background: var(--grad-primary);
+      color: #fff;
+      border: 0;
+      border-radius: var(--panel-radius);
+      padding: clamp(0.62rem, 1.05vw, 0.98rem);
+      box-shadow: 0 16px 30px rgba(35, 140, 217, 0.23);
+    }
+
+    .gradient-panel p,
+    .gradient-panel li,
+    .gradient-panel h3 { color: #fff; }
 
     .hero-layout {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: clamp(0.65rem, 1.5vw, 1.2rem);
+      gap: clamp(0.55rem, 1.2vw, 0.95rem);
+      max-height: min(74vh, 560px);
       align-items: stretch;
-      max-height: min(72vh, 540px);
-    }
-
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(0.5rem, 0.9vw, 0.8rem);
     }
 
     .qr-box {
       width: min(24vw, 150px);
-      align-self: flex-end;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(0.2rem, 0.4vw, 0.35rem);
+      gap: clamp(0.2rem, 0.45vw, 0.35rem);
       text-decoration: none;
-      color: var(--ink);
+      color: var(--c-ink);
+      margin-left: auto;
     }
 
     .qr-box img {
-      width: min(22vw, 130px);
-      height: min(22vw, 130px);
+      width: min(21vw, 128px);
+      height: min(21vw, 128px);
+      border-radius: clamp(0.35rem, 0.65vw, 0.52rem);
+      border: 1px solid rgba(9, 31, 44, 0.14);
       background: #fff;
-      border: 1px solid var(--line);
-      border-radius: clamp(0.35rem, 0.6vw, 0.5rem);
       padding: clamp(0.2rem, 0.4vw, 0.28rem);
+      box-shadow: var(--shadow);
+      max-height: min(50vh, 400px);
+    }
+
+    .qr-box span { font-size: var(--small-size); font-weight: 700; color: var(--c-magenta); text-transform: uppercase; }
+
+    .agenda-grid,
+    .module-grid,
+    .logo-strip,
+    .next-grid {
+      display: grid;
+      gap: clamp(0.45rem, 1vw, 0.75rem);
+    }
+
+    .agenda-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-height: min(58vh, 430px); }
+    .module-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: min(58vh, 430px); }
+    .logo-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); max-height: min(24vh, 175px); }
+    .next-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: min(56vh, 420px); }
+
+    .agenda-item,
+    .logo-chip,
+    .step-card {
+      border-radius: var(--panel-radius);
+      border: 1px solid rgba(9, 31, 44, 0.12);
+      background: rgba(255, 255, 255, 0.86);
+      padding: clamp(0.45rem, 0.8vw, 0.65rem);
       box-shadow: var(--shadow);
     }
 
-    .qr-box span {
-      font-size: clamp(0.58rem, 0.84vw, 0.72rem);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      color: var(--accent);
+    .agenda-item strong,
+    .logo-chip strong { display: block; margin-bottom: 0.2rem; font-size: var(--small-size); text-transform: uppercase; color: var(--c-blue); }
+
+    .three-box .step-card {
+      background: linear-gradient(135deg, rgba(35, 140, 217, 0.12), rgba(202, 108, 205, 0.12));
+      border: 1px solid rgba(35, 140, 217, 0.2);
     }
 
-    .bullet-list {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: clamp(0.35rem, 0.8vh, 0.7rem);
-      max-height: min(58vh, 440px);
-      overflow: hidden;
-    }
-
-    .bullet-list li {
+    .diagram {
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: clamp(0.42rem, 0.8vw, 0.7rem);
-      align-items: baseline;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: clamp(0.26rem, 0.55vw, 0.5rem);
+      max-height: min(30vh, 210px);
     }
 
-    .bullet-list li::before {
-      content: "->";
-      color: var(--accent);
+    .node {
+      border-radius: var(--panel-radius);
+      border: 1px solid rgba(9, 31, 44, 0.14);
+      background: rgba(255, 255, 255, 0.9);
+      padding: clamp(0.45rem, 0.85vw, 0.65rem);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .arrow {
+      font-size: clamp(0.9rem, 1.6vw, 1.2rem);
+      color: var(--c-violet);
       font-weight: 800;
+      text-align: center;
     }
 
-    .matrix {
+    .demo-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(0.45rem, 0.95vw, 0.75rem);
+      max-height: min(40vh, 290px);
+    }
+
+    .proof-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(0.5rem, 1.2vw, 1rem);
-      max-height: min(62vh, 460px);
+      gap: clamp(0.45rem, 1vw, 0.75rem);
+      max-height: min(40vh, 310px);
     }
 
-    .matrix .panel strong {
-      display: block;
-      margin-bottom: clamp(0.18rem, 0.4vw, 0.3rem);
-      color: var(--ink);
-      font-size: clamp(0.8rem, 1vw, 0.95rem);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .metric {
+      border-radius: var(--panel-radius);
+      border: 1px solid rgba(9, 31, 44, 0.14);
+      background: rgba(255, 255, 255, 0.9);
+      padding: clamp(0.52rem, 0.9vw, 0.72rem);
+      box-shadow: var(--shadow);
     }
 
-    .compare-track {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(0.45rem, 1vw, 0.8rem);
-      max-height: min(60vh, 450px);
-    }
-
-    .step {
-      border-top: clamp(0.16rem, 0.28vw, 0.22rem) solid var(--accent);
-      padding-top: clamp(0.45rem, 0.8vw, 0.65rem);
-      display: flex;
-      flex-direction: column;
-      gap: clamp(0.3rem, 0.6vw, 0.45rem);
-    }
-
-    .quote {
-      font-size: clamp(1.05rem, 2.35vw, 2rem);
-      line-height: 1.2;
-      max-width: min(85vw, 960px);
-      color: var(--ink);
-    }
-
-    .attribution {
-      font-size: var(--small-size);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .nav-dots {
-      position: fixed;
-      right: clamp(0.55rem, 1.3vw, 1rem);
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: clamp(0.42rem, 0.85vw, 0.68rem);
-      z-index: 12;
-    }
-
-    .nav-dot {
-      width: clamp(0.5rem, 0.8vw, 0.7rem);
-      height: clamp(0.5rem, 0.8vw, 0.7rem);
-      border-radius: 50%;
-      border: 1px solid rgba(23, 23, 23, 0.34);
-      background: rgba(255, 255, 255, 0.7);
-      cursor: pointer;
-      transition: transform 170ms ease, background-color 170ms ease;
-    }
-
-    .nav-dot.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      transform: scale(1.25);
-    }
-
-    .keyboard-hint {
-      position: fixed;
-      left: clamp(0.62rem, 1.5vw, 1.1rem);
-      bottom: clamp(0.62rem, 1.5vw, 1.1rem);
-      z-index: 12;
-      font-size: var(--small-size);
-      color: #222;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: clamp(0.2rem, 0.45vw, 0.35rem) clamp(0.34rem, 0.7vw, 0.56rem);
-    }
+    .metric strong { display: block; font-size: clamp(1.2rem, 2.5vw, 1.85rem); color: var(--c-blue); line-height: 1; margin-bottom: 0.18rem; }
 
     .reveal {
       opacity: 0;
-      transform: translateY(clamp(0.35rem, 1vw, 0.8rem));
-      animation: rise 620ms cubic-bezier(.2,.83,.39,1) forwards;
+      transform: translateY(clamp(0.35rem, 1vw, 0.7rem));
+      animation: rise 620ms cubic-bezier(.2,.84,.41,1) forwards;
     }
 
-    @keyframes rise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-height: 700px) {
+      :root { --pad: clamp(0.7rem, 2.2vw, 1.9rem); --title-size: clamp(1.3rem, 4.4vw, 2.6rem); }
     }
 
-    @media (max-width: 900px) {
+    @media (max-height: 600px) {
+      :root { --pad: clamp(0.52rem, 1.8vw, 1.3rem); --body-size: clamp(0.67rem, 1.07vw, 0.92rem); }
+      .top-nav { display: none; }
+    }
+
+    @media (max-height: 500px) {
+      :root { --pad: clamp(0.42rem, 1.5vw, 0.95rem); --title-size: clamp(1rem, 3.4vw, 1.6rem); }
+    }
+
+    @media (max-width: 980px) {
       .hero-layout,
-      .matrix,
-      .compare-track {
-        grid-template-columns: 1fr 1fr;
+      .agenda-grid,
+      .logo-strip,
+      .next-grid,
+      .module-grid,
+      .demo-flow,
+      .proof-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .qr-box {
-        align-self: flex-start;
-      }
+      .diagram { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); }
     }
 
     @media (max-width: 620px) {
       .hero-layout,
-      .matrix,
-      .compare-track {
+      .agenda-grid,
+      .logo-strip,
+      .next-grid,
+      .module-grid,
+      .demo-flow,
+      .proof-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-  <!-- === NAV === -->
-  <nav class="nav-dots" aria-label="Slide navigation"></nav>
-  <div class="keyboard-hint">Arrow Keys or Space</div>
+  <header class="top-nav" aria-label="Section navigation">
+    <a href="#hero">Hero</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#challenge">Challenge</a>
+    <a href="#solution">Solution</a>
+    <a href="#demo">Demo</a>
+    <a href="#impact">Impact</a>
+    <a href="#next-steps">Next steps</a>
+  </header>
 
-  <!-- === SLIDE 1: HERO === -->
-  <section class="slide" id="slide-1">
+  <section class="slide" id="hero">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 80ms;">Executive Brief</p>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Copilot Presentation</p>
       <div class="hero-layout">
-        <div class="hero-left panel reveal" style="animation-delay: 150ms;">
-          <h1>Copilot Cowork in der Praxis</h1>
-          <p style="margin-top: clamp(0.45rem, 0.9vw, 0.7rem);">
-            Wann es der richtige Hebel ist und wie es sich gegen Microsoft 365 Copilot,
-            Microsoft Scout und custom Copilot Studio Agents positioniert.
+        <article class="gradient-panel reveal" style="animation-delay: 140ms;">
+          <h1>Copilot Cowork fuer echte End-to-End Arbeit</h1>
+          <p style="margin-top: 0.45rem;">
+            Vergleich zu Microsoft 365 Copilot, Microsoft Scout und custom Copilot Studio Agents,
+            mit Fokus auf Problem, Approach, Impact und klare Next Steps.
           </p>
-        </div>
-        <div class="hero-right">
-          <a class="qr-box reveal" style="animation-delay: 210ms;" href="https://sulequi.github.io/frontend-slides-presentation-personal/" target="_blank" rel="noopener noreferrer" aria-label="Presentation QR Code">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fsulequi.github.io%2Ffrontend-slides-presentation-personal%2F" alt="QR code to open this presentation" />
-            <span>Scan to open</span>
+        </article>
+        <aside class="panel reveal" style="animation-delay: 200ms; display: flex; flex-direction: column; gap: 0.5rem;">
+          <a class="qr-box" href="https://sulequi.github.io/frontend-slides-presentation-personal/" target="_blank" rel="noopener noreferrer" aria-label="Open presentation link via QR">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fsulequi.github.io%2Ffrontend-slides-presentation-personal%2F" alt="QR code linking to the published presentation" />
+            <span>Scan to open page</span>
           </a>
-          <div class="panel reveal" style="animation-delay: 270ms;">
-            <h3>Deck Focus</h3>
-            <p>Purpose, best-fit use cases, governance and selection logic.</p>
+          <div class="panel" style="background: rgba(255,255,255,0.7);">
+            <h3>Audience</h3>
+            <p>Leadership, adoption teams, solution architects.</p>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <!-- === SLIDE 2: WHAT IS COWORK === -->
-  <section class="slide" id="slide-2">
+  <section class="slide" id="agenda">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Core Concept</p>
-      <h2 class="reveal" style="animation-delay: 140ms;">Was Cowork praktisch anders macht</h2>
-      <ul class="bullet-list panel reveal" style="animation-delay: 220ms; max-width: min(90vw, 980px);">
-        <li>Fuehrt multi-step Aufgaben ueber M365-Apps hinweg aus, statt nur Antworten zu erzeugen.</li>
-        <li>Zeigt jeden Schritt transparent und bleibt durch Pause, Resume, Cancel steuerbar.</li>
-        <li>Fragt vor sensitiven Aktionen wie Send, Post oder Create explizit um Freigabe.</li>
-        <li>Arbeitet mit Nutzerrechten und bleibt innerhalb deiner bestehenden Berechtigungen.</li>
-        <li>Ist aktuell Frontier Preview und sollte als kontrollierter Pilot geplant werden.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- === SLIDE 3: WHEN TO USE === -->
-  <section class="slide" id="slide-3">
-    <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Use Cases</p>
-      <h2 class="reveal" style="animation-delay: 140ms;">Wann du Cowork einsetzen solltest</h2>
-      <div class="matrix reveal" style="animation-delay: 220ms; max-width: min(92vw, 1040px);">
-        <article class="panel"><strong>Cross-App Work</strong><p>Recherche, Dokument bauen, teilen und Follow-up in einem Fluss.</p></article>
-        <article class="panel"><strong>Delegierbare Routine</strong><p>Inbox Cleanup, Meeting Prep, Briefings, koordinierte Tagesaufgaben.</p></article>
-        <article class="panel"><strong>Kontrollierte Automatisierung</strong><p>Teams wollen Wirkung, aber sensible Aktionen bleiben menschlich freigegeben.</p></article>
-        <article class="panel"><strong>Hoher Koordinationsanteil</strong><p>Wenn mehrere Dateien, Chats, Termine und Mails zusammengefuehrt werden muessen.</p></article>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Agenda</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Roter Faden durch die Entscheidung</h2>
+      <div class="agenda-grid reveal" style="animation-delay: 220ms;">
+        <article class="agenda-item"><strong>1 Problem</strong><p>Wo Assistenz allein nicht reicht.</p></article>
+        <article class="agenda-item"><strong>2 Approach</strong><p>Welcher Copilot fuer welches Arbeitsmuster.</p></article>
+        <article class="agenda-item"><strong>3 Proof</strong><p>Wie Wirkung, Risiko und Aufwand zusammenpassen.</p></article>
+        <article class="agenda-item"><strong>4 Next steps</strong><p>Pilotrahmen und Rollout-Entscheidung.</p></article>
+      </div>
+      <div class="logo-strip reveal" style="animation-delay: 280ms;">
+        <div class="logo-chip"><strong>Microsoft 365 Copilot</strong><p>Single-step Assistenz</p></div>
+        <div class="logo-chip"><strong>Copilot Cowork</strong><p>Multi-step Ausfuehrung</p></div>
+        <div class="logo-chip"><strong>Microsoft Scout</strong><p>Desktop + Shell + Browser</p></div>
+        <div class="logo-chip"><strong>Copilot Studio</strong><p>Custom Agent Plattform</p></div>
       </div>
     </div>
   </section>
 
-  <!-- === SLIDE 4: TOOL MATRIX === -->
-  <section class="slide" id="slide-4">
+  <section class="slide" id="challenge">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Comparison Matrix</p>
-      <h2 class="reveal" style="animation-delay: 140ms;">Cowork vs. M365 Copilot vs. Scout vs. Studio</h2>
-      <div class="matrix reveal" style="animation-delay: 220ms; max-width: min(92vw, 1040px);">
-        <article class="panel"><strong>Microsoft 365 Copilot</strong><p>Best fuer schnelle, einzelne Assistenzschritte direkt in Word, Teams, Outlook oder Excel.</p></article>
-        <article class="panel"><strong>Copilot Cowork</strong><p>Best fuer Ende-zu-Ende Aufgaben in M365 mit sichtbaren Schritten und Freigaben.</p></article>
-        <article class="panel"><strong>Microsoft Scout</strong><p>Best fuer Desktop-nahe Arbeit: Files, Shell, Browser und M365 in einem Agenten.</p></article>
-        <article class="panel"><strong>Copilot Studio Agents</strong><p>Best fuer eigene Geschaeftslogik, Integrationen und langfristige Prozessautomation.</p></article>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Problem</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Wo klassische AI-Assistenz limitiert</h2>
+      <div class="module-grid three-box reveal" style="animation-delay: 220ms;">
+        <article class="step-card">
+          <h3>Fragmentierte Arbeit</h3>
+          <p>Aufgaben springen zwischen Mail, Meetings, Dateien und Chats.</p>
+        </article>
+        <article class="step-card">
+          <h3>Zu viele Handovers</h3>
+          <p>Menschen orchestrieren repetitive Zwischenschritte statt Ergebnisse.</p>
+        </article>
+        <article class="step-card">
+          <h3>Unklare Toolwahl</h3>
+          <p>Teams wissen nicht, wann Assistenz, Agent oder Custom Build sinnvoll ist.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- === SLIDE 5: COWORK VS M365 === -->
-  <section class="slide" id="slide-5">
+  <section class="slide" id="solution">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Head-to-Head</p>
-      <h2 class="reveal" style="animation-delay: 140ms;">Cowork vs. Microsoft 365 Copilot</h2>
-      <div class="compare-track reveal" style="animation-delay: 220ms; max-width: min(92vw, 1060px);">
-        <article class="step panel"><h3>Interaction</h3><p>M365 Copilot: prompt -> answer. Cowork: prompt -> planned steps -> outcome.</p></article>
-        <article class="step panel"><h3>Execution</h3><p>M365 Copilot assistiert. Cowork fuehrt app-uebergreifende Aufgaben aktiv aus.</p></article>
-        <article class="step panel"><h3>Control</h3><p>Cowork beinhaltet Action Approvals fuer riskantere Aktionen im Ablauf.</p></article>
-        <article class="step panel"><h3>Rule of Thumb</h3><p>Single-step Hilfe: M365 Copilot. Multi-step Workflows: Cowork.</p></article>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Approach</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Referenzarchitektur fuer Copilot-Auswahl</h2>
+      <div class="diagram reveal" style="animation-delay: 220ms;">
+        <div class="node"><h3>Intent</h3><p>Single-step, multi-step, desktop-flow oder custom process.</p></div>
+        <div class="arrow">-></div>
+        <div class="node"><h3>Execution Layer</h3><p>M365 Copilot, Cowork, Scout oder Copilot Studio Agent.</p></div>
+        <div class="arrow">-></div>
+        <div class="node"><h3>Governance</h3><p>Approvals, permissions, monitoring, rollout policy.</p></div>
+      </div>
+      <div class="module-grid reveal" style="animation-delay: 290ms;">
+        <article class="panel"><h3>Single-step</h3><p>M365 Copilot fuer schnelle Antworten und Entwuerfe.</p></article>
+        <article class="panel"><h3>Multi-step</h3><p>Cowork fuer orchestrierte Aufgaben in M365.</p></article>
+        <article class="panel"><h3>Custom logic</h3><p>Copilot Studio Agent fuer Integrationen und Prozesskontrolle.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- === SLIDE 6: COWORK VS SCOUT === -->
-  <section class="slide" id="slide-6">
+  <section class="slide" id="demo">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Head-to-Head</p>
-      <h2 class="reveal" style="animation-delay: 140ms;">Cowork vs. Microsoft Scout</h2>
-      <ul class="bullet-list panel reveal" style="animation-delay: 220ms; max-width: min(90vw, 980px);">
-        <li>Cowork ist M365-first mit starkem Fokus auf Business-Produktivitaet und Zusammenarbeit.</li>
-        <li>Scout ist Desktop-first mit Zugriff auf Files, Shell, Browser plus M365 Daten.</li>
-        <li>Scout passt besser zu technischen Workflows; Cowork besser zu orchestrierter Wissensarbeit.</li>
-        <li>Beide sind Frontier Preview und sollten mit klaren Guardrails pilotiert werden.</li>
-      </ul>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Demo Flow</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Beispiel: Meeting-Prep bis Follow-up in einem Durchlauf</h2>
+      <div class="demo-flow reveal" style="animation-delay: 220ms;">
+        <article class="gradient-panel"><h3>1 Input</h3><p>Prompt mit Ziel, Teamkontext und Datenquellen.</p></article>
+        <article class="gradient-panel"><h3>2 Agentic Work</h3><p>Cowork erstellt Briefing, Entwurfsmail, Agenda und Aufgabenliste.</p></article>
+        <article class="gradient-panel"><h3>3 Approval</h3><p>Vor Senden oder Posten wird gezielt Freigabe eingeholt.</p></article>
+      </div>
+      <div class="logo-strip reveal" style="animation-delay: 290ms;">
+        <div class="logo-chip"><strong>Outlook</strong><p>Mail compose</p></div>
+        <div class="logo-chip"><strong>Teams</strong><p>Message and meeting context</p></div>
+        <div class="logo-chip"><strong>PowerPoint</strong><p>Briefing deck draft</p></div>
+        <div class="logo-chip"><strong>OneDrive</strong><p>File grounding</p></div>
+      </div>
     </div>
   </section>
 
-  <!-- === SLIDE 7: COWORK VS STUDIO === -->
-  <section class="slide" id="slide-7">
+  <section class="slide" id="impact">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Architecture Choice</p>
-      <p class="quote reveal" style="animation-delay: 150ms;">
-        Nutze custom Copilot Studio Agents, wenn du eigene Orchestrierung, externe Systemanbindung
-        und wiederholbare Prozesslogik unter Governance brauchst.
-      </p>
-      <p class="attribution reveal" style="animation-delay: 240ms;">Cowork = execution in M365, Studio = platform-level customization</p>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Proof / Impact</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Wirkung, Aufwand und Risiko im Vergleich</h2>
+      <div class="proof-grid reveal" style="animation-delay: 220ms;">
+        <article class="metric"><strong>Fast Start</strong><p>M365 Copilot liefert den schnellsten Einstieg fuer breite Nutzergruppen.</p></article>
+        <article class="metric"><strong>Execution Gain</strong><p>Cowork spart Koordinationsaufwand in mehrstufigen Workflows.</p></article>
+        <article class="metric"><strong>Technical Reach</strong><p>Scout erweitert auf Desktop-, Shell- und Browser-Automation.</p></article>
+        <article class="metric"><strong>Max Control</strong><p>Copilot Studio Agents bieten volle Integrations- und Orchestrierungstiefe.</p></article>
+      </div>
+      <div class="panel reveal" style="animation-delay: 280ms;">
+        <p>Hinweis: Cowork und Scout sind derzeit als Preview-Funktionen zu behandeln und sollten kontrolliert pilotiert werden.</p>
+      </div>
     </div>
   </section>
 
-  <!-- === SLIDE 8: DECISION FRAME === -->
-  <section class="slide" id="slide-8">
+  <section class="slide" id="next-steps">
     <div class="slide-content">
-      <p class="kicker reveal" style="animation-delay: 70ms;">Decision Frame</p>
-      <h2 class="reveal" style="animation-delay: 140ms;">So waehlst du in 30 Sekunden</h2>
-      <div class="panel reveal" style="animation-delay: 220ms; max-width: min(84vw, 840px);">
-        <p>Single-step Assistenz: Microsoft 365 Copilot.</p>
-        <p style="margin-top: 0.45em;">Multi-step Ausfuehrung in M365: Copilot Cowork.</p>
-        <p style="margin-top: 0.45em;">Desktop plus Shell plus Browser: Microsoft Scout.</p>
-        <p style="margin-top: 0.45em;">Custom Workflow und Integrationsplattform: Copilot Studio Agents.</p>
+      <p class="kicker reveal" style="animation-delay: 70ms;">Next steps</p>
+      <h2 class="reveal" style="animation-delay: 140ms;">Empfohlener Pilotpfad</h2>
+      <div class="next-grid reveal" style="animation-delay: 220ms;">
+        <article class="gradient-panel"><h3>Phase 1</h3><p>Use-case shortlist und Governance-Check (2 Wochen).</p></article>
+        <article class="gradient-panel"><h3>Phase 2</h3><p>Parallelpilot: Cowork fuer Wissensarbeit, Scout fuer technische Flows.</p></article>
+        <article class="gradient-panel"><h3>Phase 3</h3><p>Entscheidung: Skalierung mit M365 Copilot plus gezielte Studio Agents.</p></article>
+      </div>
+      <div class="panel reveal" style="animation-delay: 290ms;">
+        <p><strong>Decision rule:</strong> Single-step = M365 Copilot, multi-step = Cowork, desktop automation = Scout, custom process = Copilot Studio Agent.</p>
       </div>
     </div>
   </section>
 
   <script>
-    /* === NAVIGATION === */
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const nav = document.querySelector('.nav-dots');
-
-    slides.forEach((slide, index) => {
-      const dot = document.createElement('button');
-      dot.className = 'nav-dot';
-      dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-      dot.addEventListener('click', () => {
-        slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      nav.appendChild(dot);
-    });
-
-    const dots = Array.from(document.querySelectorAll('.nav-dot'));
+    const navLinks = Array.from(document.querySelectorAll('.top-nav a'));
+    const sections = Array.from(document.querySelectorAll('.slide'));
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        const active = slides.indexOf(entry.target);
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === active));
+        const id = entry.target.id;
+        navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
       });
-    }, { threshold: 0.6 });
+    }, { threshold: 0.62 });
 
-    slides.forEach((slide) => observer.observe(slide));
-
-    function activeSlide() {
-      let idx = 0;
-      let dist = Number.POSITIVE_INFINITY;
-      slides.forEach((slide, i) => {
-        const d = Math.abs(slide.getBoundingClientRect().top);
-        if (d < dist) {
-          dist = d;
-          idx = i;
-        }
-      });
-      return idx;
-    }
-
-    function go(index) {
-      const target = slides[Math.max(0, Math.min(slides.length - 1, index))];
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    sections.forEach((section) => observer.observe(section));
 
     window.addEventListener('keydown', (event) => {
-      if (['ArrowDown', 'PageDown', 'ArrowRight', ' '].includes(event.key)) {
+      const keysNext = ['ArrowDown', 'PageDown', 'ArrowRight', ' '];
+      const keysPrev = ['ArrowUp', 'PageUp', 'ArrowLeft'];
+      const current = sections.findIndex((s) => Math.abs(s.getBoundingClientRect().top) < window.innerHeight * 0.25);
+      const safeCurrent = current < 0 ? 0 : current;
+
+      if (keysNext.includes(event.key)) {
         event.preventDefault();
-        go(activeSlide() + 1);
+        const next = sections[Math.min(sections.length - 1, safeCurrent + 1)];
+        next.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(event.key)) {
+      if (keysPrev.includes(event.key)) {
         event.preventDefault();
-        go(activeSlide() - 1);
+        const prev = sections[Math.max(0, safeCurrent - 1)];
+        prev.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-
-      if (event.key === 'Home') go(0);
-      if (event.key === 'End') go(slides.length - 1);
     });
-
-    dots[0]?.classList.add('active');
   </script>
 </body>
 </html>
